@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ChangeEvent, useMemo } from "react";
+import React, { useEffect, useState, ChangeEvent, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, caissesSelectors } from "../../store/fees/caisseSlice";
 import { RootState, AppDispatch } from "../../store/store";
@@ -407,13 +407,16 @@ const Caisse = () => {
     }
     return yearList;
   }, []);
-  const getUserName = (userId?: number) => {
-    if (!userId) return "Utilisateur inconnu";
+ const getUserName = useCallback(
+  (userId?: number) => {
+    if (!userId) return t("Utilisateur inconnu");
     const user = users[userId];
     return user
       ? `${user.username} ${user.lastName || ""}`.trim() || user.username
-      : "Utilisateur inconnu";
-  };
+      : t("Utilisateur inconnu");
+  },
+  [users, t] // Add users and t as dependencies
+);
   const transactionColumns = useMemo(
     () => [
       // {
