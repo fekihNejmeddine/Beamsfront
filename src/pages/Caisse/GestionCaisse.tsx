@@ -14,7 +14,6 @@ import {
   IconButton,
   Chip,
   Avatar,
-  CircularProgress,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -22,36 +21,26 @@ import {
   Tooltip,
   Divider,
   useTheme,
-  TableContainer,
-  Table as MuiTable,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Paper,
-  TextField,
+  
   Button,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
-  TablePagination,
 } from "@mui/material";
 import {
   Edit as EditIcon,
-  Delete as DeleteIcon,
+ 
   AttachMoney as MoneyIcon,
   Visibility as VisibilityIcon,
-  UploadFile as UploadFileIcon,
-  Close as CloseIcon,
+
 } from "@mui/icons-material";
 import useAuth from "../../hooks/useAuth";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import { StyledButton } from "../Style";
-import { usersSelectors, actions as actionsUser } from "../../store/user/slice";
+import {  actions as actionsUser } from "../../store/user/slice";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 import Table from "../../components/UI/Table";
 import FilterBar, { FilterConfig } from "../../components/UI/FilterBar";
 import { Caisse, Transaction } from "../../store/fees/Types";
@@ -63,7 +52,6 @@ import { fr } from "date-fns/locale";
 import CustomButton from "../../components/UI/Button";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import CustomSelect from "../../components/UI/Select";
 
 interface Participant {
   userId?: number;
@@ -93,18 +81,15 @@ const GestionCaisse: React.FC = () => {
 
   // State management
   const {
-    loading: caissesLoading,
     error: caissesError,
     total,
     Ttotal,
     transactions,
-    TcurrentPage,
-    TpageSize,
+
   } = useSelector((state: RootState) => state.fees);
   const {
     entities: users,
     loading: usersLoading,
-    error: usersError,
   } = useSelector((state: RootState) => state.users);
 
   // Modal state
@@ -116,12 +101,12 @@ const GestionCaisse: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [openTransactionsDialog, setOpenTransactionsDialog] = useState(false);
   const [selectedCaisseId, setSelectedCaisseId] = useState<number | null>(null);
-  const [openTransactionConfirmDialog, setOpenTransactionConfirmDialog] =
+  const [, setOpenTransactionConfirmDialog] =
     useState(false);
-  const [pendingTransaction, setPendingTransaction] =
+  const [, setPendingTransaction] =
     useState<TransactionFormData | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string[]>([]);
-  const [amountError, setAmountError] = useState<string | null>(null);
+  const [, setAmountError] = useState<string | null>(null);
 
   // Form state
   const [formValues, setFormValues] = useState({
@@ -386,40 +371,7 @@ const GestionCaisse: React.FC = () => {
     [fetchMoreUsers]
   );
 
-  const handleParticipantsChange = useCallback((newValue: UserOption[]) => {
-    setFormValues((prev) => ({
-      ...prev,
-      participants: newValue,
-    }));
-  }, []);
-
-  // Transaction form handlers
-  const handlePhotoChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files) {
-      const newFiles = Array.from(event.target.files);
-      const newPreviews = newFiles.map((file) => URL.createObjectURL(file));
-      const updatedFiles = [...transactionFormik.values.Photo, ...newFiles];
-      const updatedPreviews = [...photoPreview, ...newPreviews];
-      setPhotoPreview(updatedPreviews);
-      transactionFormik.setFieldValue("Photo", updatedFiles);
-    }
-  };
-
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    transactionFormik.handleChange(e);
-    if (value) {
-      const amount = parseFloat(value);
-      const selectedCaisse = caisses.find((c) => c.id === selectedCaisseId);
-      if (selectedCaisse && amount > selectedCaisse.balance) {
-        setAmountError(t("The amount cannot exceed the current balance"));
-      } else {
-        setAmountError(null);
-      }
-    } else {
-      setAmountError(null);
-    }
-  };
+  
 
   const handleCreateCaisse = useCallback(
     async (data: typeof formValues) => {
@@ -533,51 +485,9 @@ const GestionCaisse: React.FC = () => {
     [dispatch, auth, currentCaisse]
   );
 
-  const confirmDelete = (caisse: Caisse) => {
-    Swal.fire({
-      title: "Êtes-vous sûr ?",
-      text: `Voulez-vous vraiment supprimer ${caisse.name} ?`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Oui, supprimer",
-      cancelButtonText: "Annuler",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        handleDelete(caisse);
-      }
-    });
-  };
+  
 
-  const handleDelete = useCallback(
-    async (caisse: Caisse) => {
-      setIsProcessing(true);
-      try {
-        const updatedCaisse = {
-          id: caisse.id,
-          name: caisse.name || "",
-          balance: caisse.balance,
-          minBalance: caisse.minBalance || 0,
-          participants: parseParticipants(caisse.participants),
-          isDeleted: true,
-        };
-        await dispatch(
-          actions.updateCaisseRequest({
-            caisse: updatedCaisse,
-            token: auth.accessToken!,
-          })
-        );
-        toast.success(`Caisse "${caisse.name}" marquée comme supprimée`);
-      } catch (err: any) {
-        toast.error(
-          err.message || "Erreur lors de la suppression de la caisse"
-        );
-      } finally {
-        setIsProcessing(false);
-      }
-    },
-    [dispatch, auth?.accessToken]
-  );
-
+  
   // Table and filter handlers
   const handleSort = useCallback(
     (columnId: string) => {
@@ -919,6 +829,7 @@ const GestionCaisse: React.FC = () => {
           validate: {
             unique: (v: UserOption[]) =>
               new Set(v.map((p) => p.id)).size === v.length ||
+            
               "Les participants doivent être uniques",
           },
         },

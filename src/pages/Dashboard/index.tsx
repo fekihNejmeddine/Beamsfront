@@ -22,8 +22,6 @@ import HeaderBar from "../../components/UI/HeaderBar";
 import FilterBar, { FilterConfig } from "../../components/UI/FilterBar";
 import { useTranslation } from "react-i18next";
 import ApexCharts from "apexcharts";
-import { User } from "../../types/interface/User";
-import { Building } from "../../types/interface/Building";
 import { UserRole } from "../../types/enum/UserRole.enum";
 import { GenderType } from "../../types/enum/Gender";
 import PeopleIcon from "@mui/icons-material/People";

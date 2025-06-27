@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IReclamation, ReclamationState } from "./types";
-import { Reclamation } from "../../types/interface/Reclamation";
 
 interface FetchReclamationsPayload {
   userId: number;

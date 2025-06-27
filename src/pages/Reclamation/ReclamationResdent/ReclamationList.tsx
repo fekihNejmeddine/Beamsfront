@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Card,
@@ -12,11 +12,6 @@ import {
   Button,
   CircularProgress,
   Tooltip,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
   Avatar,
   Divider,
   Alert,
@@ -29,13 +24,11 @@ import { IReclamation } from "../../../store/reclamation/types";
 import {
   deleteReclamation,
   updateReclamation,
-  fetchReclamations,
 } from "../../../store/reclamation/slice";
 import { RootState, AppDispatch } from "../../../store/store";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { t } from "i18next";
-import CustomDelete from "../../../components/UI/Delete";
 import Swal from "sweetalert2";
 
 interface ReclamationListProps {
@@ -57,13 +50,10 @@ const ReclamationList: React.FC<ReclamationListProps> = ({
     (state: RootState) => state.reclamation
   );
   const [openModal, setOpenModal] = useState(false);
-  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [selectedReclamation, setSelectedReclamation] =
     useState<IReclamation | null>(null);
   const [description, setDescription] = useState("");
-  const [reclamationToDelete, setReclamationToDelete] = useState<number | null>(
-    null
-  );
+ 
   const [photoPreview, setPhotoPreview] = useState<string[]>([]);
 
   const handleOpenModal = (rec: IReclamation) => {

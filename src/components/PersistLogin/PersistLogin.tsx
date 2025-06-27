@@ -13,7 +13,8 @@ const PersistLogin: React.FC<PersistLoginProps> = (props) => {
   const refresh = useRefreshToken();
   const { auth } = useAuth();
   const location = useLocation();
-
+const a = isLoading;
+  console.log(a)
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);

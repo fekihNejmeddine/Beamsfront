@@ -17,7 +17,7 @@ import {
   deleteReclamationSuccess,
   deleteReclamationFailure,
 } from "./slice";
-import { IReclamation } from "./types";
+
 import PATHS from "../../PATH/apiPath";
 
 function* fetchAllReclamationsSaga(action) {

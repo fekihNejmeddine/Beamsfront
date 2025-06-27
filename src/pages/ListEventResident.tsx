@@ -91,7 +91,7 @@ const ListEventResident: React.FC = () => {
     currentPage,
     auth?.user?.idsyndic,
     auth?.user?.id,
-    pagination.limit,
+    pagination.limit,auth?.accessToken
   ]);
 
   useEffect(() => {

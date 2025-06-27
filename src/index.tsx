@@ -5,8 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { AuthProvider } from "./context/AuthProvider";
 import { BrowserRouter } from "react-router-dom";
-import { CssBaseline, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+import { CssBaseline  } from "@mui/material";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

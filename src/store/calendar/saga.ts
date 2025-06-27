@@ -7,7 +7,7 @@ import {
   select,
 } from "redux-saga/effects";
 import { actions } from "./slice";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import PATHS from "../../PATH/apiPath";
 import { RootState } from "../store";
 import { Event } from "./types";
@@ -97,7 +97,7 @@ function* onMoveEvent(action: Payload<{ event: Event; token: string }>) {
   try {
     const { event, token } = action.payload;
 
-    const { exists, waitingPosition, message } = yield call(
+    const {  waitingPosition, message } = yield call(
       checkAvailability,
       event,
       token
@@ -118,12 +118,7 @@ function* onMoveEvent(action: Payload<{ event: Event; token: string }>) {
     }
 
     const updatedEvent = { ...event, waitingPosition: 1 };
-    const response: ApiResponse<any> = yield call(
-      axios.put,
-      `${PATHS.MEET.PUT_MEET}/${event.id}`,
-      updatedEvent,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+    
     yield put(actions.moveEventSuccess(message));
   } catch (error) {
     yield put(actions.moveEventFail(handleApiError(error)));
@@ -134,7 +129,7 @@ function* onAddEvent(action: Payload<{ event: Event; token: string }>) {
   try {
     const { event, token } = action.payload;
 
-    const { exists, waitingPosition, message } = yield call(
+    const {  waitingPosition, message } = yield call(
       checkAvailability,
       event,
       token
@@ -180,7 +175,7 @@ function* onUpdateEvent(action: Payload<{ event: Event; token: string }>) {
   try {
     const { event, token } = action.payload;
     console.log("event :", event);
-    const { exists, waitingPosition, message } = yield call(
+    const {  waitingPosition, message } = yield call(
       checkAvailability,
       event,
       token

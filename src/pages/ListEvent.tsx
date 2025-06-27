@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  Container,
   Typography,
-  Tabs,
   Tab,
   Box,
   CircularProgress,
@@ -18,11 +16,7 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-  Avatar,
   Tooltip,
-  Chip,
-  useTheme,
-  useMediaQuery,
   LinearProgress,
   SelectChangeEvent,
 } from "@mui/material";
@@ -51,8 +45,6 @@ const ListEvent: React.FC = () => {
     (state: RootState) => state.event
   );
   const { t } = useTranslation();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [activeTab, setActiveTab] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);

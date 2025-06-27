@@ -1,35 +1,11 @@
+version: '3.9'
+
 services:
-  app:
-    build: .
-    container_name: syndic_service
-    restart: unless-stopped
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - "4002:4002"
-    # Supprime ou commente cette ligne si tu n'as pas de fichier .env
-    # env_file: .env
-    depends_on:
-      - db
-    volumes:
-      - .:/app
-    networks:
-      - app-network
-
-  db:
-    image: mysql:5.7
-    container_name: mysql-db-syndic
+      - "3000:80"
+    container_name: beams-react-front
     restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: myPassword
-      MYSQL_DATABASE: syndic_db
-    ports:
-      - "3309:3306"
-    volumes:
-      - db-data:/var/lib/mysql
-    networks:
-      - app-network
-
-volumes:
-  db-data:
-
-networks:
-  app-network:

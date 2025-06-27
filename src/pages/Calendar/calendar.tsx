@@ -54,7 +54,6 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import { usersSelectors } from "../../store/user/slice";
 import { actions as actionsUser } from "../../store/user/slice";
 import { User } from "../../types/interface/User";
-import { RegisterOptions } from "react-hook-form";
 
 interface Participant {
   id: number;
@@ -65,13 +64,12 @@ interface Participant {
 const Calendar: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { auth } = useAuth();
-  const theme = useTheme();
   const dispatch = useDispatch<AppDispatch>();
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [modal, setModal] = useState(false);
   const [selectedDay, setSelectedDay] = useState<any>(null);
   const calendarRef = useRef<any>(null);
-  const [open, setOpen] = useState(true);
+  const [, setOpen] = useState(true);
   const [selectedRoom, setSelectedRoom] = useState<number | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [dayEvents, setDayEvents] = useState<EventApi[]>([]);
@@ -90,7 +88,6 @@ const Calendar: React.FC = () => {
     waitingMessage,
     showTimeSelection,
     timeSelectionEvent,
-    loading,
   } = useSelector((state: RootState) => ({
     moveEventError: state.calendar.moveEventError,
     moveEventSuccess: state.calendar.moveEventSuccess,
@@ -108,11 +105,7 @@ const Calendar: React.FC = () => {
   }));
 
   const users = useSelector(usersSelectors.selectAll);
-  const { loading: usersLoading, hasMore: usersHasMore } = useSelector(
-    (state: RootState) => state.users
-  );
-  const [localPage, setLocalPage] = useState(1);
-
+ 
   const categories = [
     { id: 1, type: "important", title: t("Strategic IT Meeting") },
     { id: 2, type: "important", title: t("Software Architecture Review") },
@@ -338,12 +331,8 @@ const Calendar: React.FC = () => {
       : selectedDay
       ? moment(selectedDay).endOf("day").format("YYYY-MM-DD HH:mm")
       : "";
-    const participantObjects = parseParticipants(
-      validation.values.participants
-    );
-    const participantsValue = participantObjects.length
-      ? JSON.stringify(participantObjects)
-      : "";
+   
+  
 
     return [
       {

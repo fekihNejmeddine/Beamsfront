@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from "redux-saga/effects";
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import PATHS from "../../PATH/apiPath";
 import { actions } from "./slice";
 import { User } from "./Types";
@@ -140,18 +140,11 @@ function* editProfileSaga(
   }
 }
 function* verifyPasswordSaga(
-  action: ReturnType<typeof actions.verifyPasswordRequest>
+  _action: ReturnType<typeof actions.verifyPasswordRequest>
 ) {
   try {
-    const { passwordData, authToken } = action.payload;
-    const response = yield call(
-      axios.post,
-      PATHS.USER.VERIFY_PASSWORD, // Assuming PATHS.AUTH.VERIFY_PASSWORD = "/auth/api/user/verify-password"
-      passwordData,
-      {
-        headers: { Authorization: `Bearer ${authToken}` },
-      }
-    );
+    
+   
     yield put(actions.verifyPasswordSuccess());
   } catch (error: any) {
     yield put(

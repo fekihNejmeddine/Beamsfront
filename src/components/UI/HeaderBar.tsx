@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Typography, Button, useTheme, SxProps } from "@mui/material";
+import { Box, Typography,  useTheme, SxProps } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import { StyledButton } from "../../pages/Style";
 

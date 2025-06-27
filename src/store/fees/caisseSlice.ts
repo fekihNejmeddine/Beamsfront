@@ -3,7 +3,7 @@ import {
   createSlice,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { FeesState, Transaction, Caisse } from "./Types";
+import {  Transaction, Caisse } from "./Types";
 import { RootState } from "../store";
 
 const caissesAdapter = createEntityAdapter({

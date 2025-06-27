@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React from "react";
+import { useNavigate  } from "react-router-dom";
 import {
   Box,
   Button,
@@ -11,8 +11,7 @@ import {
   Zoom,
 } from "@mui/material";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
-import useAuth from "../../hooks/useAuth";
-import ROUTE from "../../PATH/route";
+
 import { styled } from "@mui/material/styles";
 
 
@@ -77,23 +76,7 @@ const PrimaryButton = styled(Button)(({ theme }) => ({
   transition: "all 0.3s ease",
 }));
 
-const SecondaryButton = styled(Button)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  marginLeft: theme.spacing(2),
-  padding: theme.spacing(1.5, 4),
-  borderRadius: theme.shape.borderRadius * 2,
-  textTransform: "none",
-  fontWeight: theme.typography.fontWeightMedium,
-  fontSize: "1rem",
-  color: theme.palette.text.secondary,
-  borderColor: theme.palette.divider,
-  "&:hover": {
-    borderColor: theme.palette.text.primary,
-    transform: "translateY(-2px)",
-    boxShadow: theme.shadows[4],
-  },
-  transition: "all 0.3s ease",
-}));
+
 
 const Error_403: React.FC = () => {
   const navigate = useNavigate();

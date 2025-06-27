@@ -9,10 +9,7 @@ import {
   Button,
   Typography,
   Container,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
+
   Modal,
   Box,
   TextField,
@@ -24,7 +21,6 @@ import {
   LinearProgress,
   Alert,
   AlertTitle,
-  TableContainer,
   Divider,
   IconButton,
   Tooltip,
@@ -46,7 +42,6 @@ import { format, getYear, getMonth } from "date-fns";
 import { fr } from "date-fns/locale";
 import CloseIcon from "@mui/icons-material/Close";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import LockIcon from "@mui/icons-material/Lock";
 import { toast } from "react-toastify";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -57,8 +52,7 @@ import {
 } from "../../store/fees/Types";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { useTranslation } from "react-i18next";
-import { AttachMoney } from "@mui/icons-material";
-import { actions as actionss } from "../../store/user/slice";
+
 
 const modalStyle = {
   position: "absolute",
@@ -164,7 +158,7 @@ const Caisse = () => {
     selectedCaisseId !== null ? caisses[selectedCaisseId] : null;
   const currentBalance = selectedCaisse?.balance ?? 0;
   const minBalance = selectedCaisse?.minBalance ?? 0;
-  const [filters, setFilters] = useState<{
+  const [filters] = useState<{
     Tpage: number;
     Tlimit: number;
     TsearchQuery: string;
@@ -619,10 +613,6 @@ const Caisse = () => {
     setPhotoPreview([]);
   };
 
-  const handleOpenActionModal = (transaction: ITransaction) => {
-    setSelectedTransaction(transaction);
-    setOpenActionModal(true);
-  };
 
   const handleCloseActionModal = () => {
     setOpenActionModal(false);
@@ -655,12 +645,10 @@ const Caisse = () => {
   };
 
   const {
-    loading: caissesLoading,
-    error: caissesError,
-    total,
+   
     Ttotal,
-    TcurrentPage,
-    TpageSize,
+
+    
   } = useSelector((state: RootState) => state.fees);
   const handleTPageChange = (newPage: number) => {
     const maxPage = Math.ceil(Ttotal / TrowsPerPage) - 1;

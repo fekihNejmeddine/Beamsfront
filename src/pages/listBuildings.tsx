@@ -1,20 +1,17 @@
 import React, { useState, useEffect, useMemo } from "react";
 import {
   IconButton,
-  TablePagination,
   Box,
   useTheme,
   SelectChangeEvent,
 } from "@mui/material";
-import { Edit, Delete, Add } from "@mui/icons-material";
+import { Edit,  Add } from "@mui/icons-material";
 import useAuth from "../hooks/useAuth";
-import Swal from "sweetalert2";
 import { Building } from "../types/interface/Building";
 import Preloader from "../components/UI/Preloader";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
 import { actions, buildingsSelectors } from "../store/building/slice";
-import { toast } from "react-toastify";
 import HeaderBar from "../components/UI/HeaderBar";
 import FilterBar from "../components/UI/FilterBar";
 import Table from "../components/UI/Table";
@@ -68,9 +65,6 @@ const ListBuildings: React.FC = () => {
   });
 
   const {
-    control,
-    handleSubmit,
-    reset,
     formState: { errors },
   } = useForm<Building | Omit<Building, "id">>({
     mode: "onChange",
@@ -88,7 +82,7 @@ const ListBuildings: React.FC = () => {
         authToken: auth.accessToken,
       })
     );
-  }, [page, rowsPerPage, dispatch]);
+  }, [page, rowsPerPage, dispatch,auth.accessToken,filters.limit,filters.page]);
 
   const handleOpenEditModal = (building: Building) => {
     setEditBuilding(building);

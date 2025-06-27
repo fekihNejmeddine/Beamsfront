@@ -2,7 +2,7 @@ import PATHS from "../PATH/apiPath";
 import useAuth from "./useAuth";
 import axios from "axios";
 const useRefreshToken = () => {
-  const { auth, setAuth } = useAuth();
+  const { setAuth } = useAuth();
 
   const refresh = async () => {
     const response = await axios.get(PATHS.AUTH.REFRESH_TOKEN, {

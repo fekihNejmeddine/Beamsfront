@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { IconButton, Box, useTheme, SelectChangeEvent } from "@mui/material";
-import { Edit, Delete, Add } from "@mui/icons-material";
-import Swal from "sweetalert2";
+import { Edit,  Add } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
 import { actions, meetingRoomsSelectors } from "../store/room/slice";
@@ -16,7 +15,7 @@ import CustomDelete from "../components/UI/Delete";
 
 const ListRooms: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { loading, total } = useSelector(
+  const {  total } = useSelector(
     (state: RootState) => state.meetingRooms
   );
   const { auth } = useAuth();

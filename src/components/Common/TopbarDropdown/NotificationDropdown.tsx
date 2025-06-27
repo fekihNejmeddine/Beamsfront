@@ -10,7 +10,6 @@ import {
   Divider,
   ListItemIcon,
   ListItemText,
-  
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -42,6 +41,8 @@ const NotificationDropdown: React.FC = () => {
   const [socket, setSocket] = useState<any>(null);
   const [readNotificationIds, setReadNotificationIds] = useState<number[]>([]);
 
+  const a = socket;
+  console.log(a)
   useEffect(() => {
     if (!auth?.accessToken || !auth?.user?.id) return;
 
@@ -210,7 +211,7 @@ const NotificationDropdown: React.FC = () => {
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      sx={{ mb: 0.5}}
+                      sx={{ mb: 0.5 }}
                     >
                       {notification.detail}
                     </Typography>

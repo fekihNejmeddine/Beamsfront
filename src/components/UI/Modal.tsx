@@ -10,7 +10,6 @@ import {
   IconButton,
   RadioGroup,
   FormControlLabel,
-  FormControl,
   FormLabel,
   Radio,
   FormHelperText,
@@ -164,7 +163,7 @@ const EntityModal: React.FC<EntityModalProps> = ({
     reset,
     trigger,
     control,
-    getValues,
+
   } = useForm<Record<string, any>>({
     mode: "onChange",
     defaultValues: entity || {},

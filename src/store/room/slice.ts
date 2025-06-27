@@ -87,7 +87,7 @@ const meetingRoomsSlice = createSlice({
       });
      console.log(action)
       const caisse = action.payload.isDeleted;
-      if (caisse == true) {
+      if (caisse === true) {
         meetingRoomsAdapter.removeOne(state, action.payload.id);
         state.total -= 1;
       } state.loading = false;

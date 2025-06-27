@@ -3,9 +3,8 @@ import {
   createEntityAdapter,
   PayloadAction,
 } from "@reduxjs/toolkit";
-import { CalendarState, Event, MeetingRooms } from "./types";
-import { createSelector } from "reselect";
-import { RootState } from "../store";
+import {  Event, MeetingRooms } from "./types";
+
 
 const eventsAdapter = createEntityAdapter({
   selectId: (event: Event) => event.id,
@@ -122,7 +121,7 @@ const calendarSlice = createSlice({
     },
     addEventSuccess: (state, action: PayloadAction<Event>) => {
       const eventExists = state.events.some(
-        (event) => event.id === action.payload.id
+        (event) => event.id == action.payload.id
       );
       eventsAdapter.addOne(state, action.payload);
       if (!eventExists && action.payload.status != "cancelled") {
@@ -153,7 +152,7 @@ const calendarSlice = createSlice({
         );
       } else {
         state.events = state.events.filter(
-          (event) => event.id !== action.payload.id
+          (event) => event.id != action.payload.id
         );
       }
       state.loading = false;

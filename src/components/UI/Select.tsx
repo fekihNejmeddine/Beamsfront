@@ -8,7 +8,7 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Controller, UseFormRegister, Control } from "react-hook-form";
+import { Controller,  Control } from "react-hook-form";
 import { SelectChangeEvent } from "@mui/material/Select";
 
 interface CustomSelectProps {

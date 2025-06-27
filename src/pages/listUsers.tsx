@@ -6,7 +6,7 @@ import {
   useTheme,
   SelectChangeEvent,
 } from "@mui/material";
-import { Edit, Delete, Add } from "@mui/icons-material";
+import { Edit,  Add } from "@mui/icons-material";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import { User } from "../types/interface/User";
@@ -73,11 +73,11 @@ const ListUsers: React.FC = () => {
     username: "",
     lastName: "",
     email: "",
-    role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : "",
+    role: auth.role == UserRole.SYNDIC ? UserRole.RESIDENT : "",
     password: "",
     currentPassword: "",
     Gender: "",
-    idsyndic: auth.role === UserRole.SYNDIC ? auth.user.id : undefined,
+    idsyndic: auth.role == UserRole.SYNDIC ? auth.user.id : undefined,
   });
 
   const roles = useMemo(
@@ -138,7 +138,7 @@ console.log(auth)
           page: 1,
           limit: filters.limit,
           search: filters.searchQuery,
-          role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : filters.role,
+          role: auth.role == UserRole.SYNDIC ? UserRole.RESIDENT : filters.role,
           pageSize: rowsPerPage,
           authToken: auth.accessToken,
           idsyndic: auth.role == UserRole.SYNDIC ? auth.user.id : filters.idsyndic,
@@ -152,8 +152,8 @@ console.log(auth)
       page: 0,
       limit: 5,
       searchQuery: "",
-      role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : "",
-      idsyndic: auth.role === UserRole.SYNDIC ? auth.idsyndic : undefined,
+      role: auth.role == UserRole.SYNDIC ? UserRole.RESIDENT : "",
+      idsyndic: auth.role == UserRole.SYNDIC ? auth.idsyndic : undefined,
     });
     setPage(0);
     if (auth.accessToken) {

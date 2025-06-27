@@ -61,12 +61,10 @@ const FilterBar: React.FC<FilterBarProps> = ({
   const isSm = useMediaQuery(theme.breakpoints.between("sm", "md")); // 600px - 900px
   const isMd = useMediaQuery(theme.breakpoints.between("md", "lg")); // 900px - 1200px
   const isLg = useMediaQuery(theme.breakpoints.between("lg", "xl")); // 1200px - 1536px
-  const isXl = useMediaQuery(theme.breakpoints.up("xl")); // ≥ 1536px
 
   // Determine layout direction and sizes based on screen size
   const isMobile = isXs;
   const flexDirection = isMobile ? "column" : "row";
-  const searchWidth = isXs ? "100%" : isSm ? "200px" : isMd ? "250px" : "300px";
   const filterWidth = isXs
     ? "100%"
     : isSm

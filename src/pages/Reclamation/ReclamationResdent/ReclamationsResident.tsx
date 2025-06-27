@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReclamationForm from "./ReclamationForm";
 import {
-  Container,
   Typography,
   CircularProgress,
   Box,
@@ -86,8 +85,8 @@ const SummaryCard = styled(Card)(({ theme }) => ({
 const ReclamationResident: React.FC = () => {
   const { t } = useTranslation();
 
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<string>("All");
+  const [searchQuery] = useState<string>("");
+  const [statusFilter] = useState<string>("All");
   const [filters, setFilters] = useState({
     searchQuery: "",
     statusFilter: "All",

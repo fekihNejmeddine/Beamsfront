@@ -9,7 +9,6 @@ import Preloader from "../components/UI/Preloader";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "../store/store";
 import { actions, usersSelectors } from "../store/user/slice";
-import { UserRole } from "../types/enum/UserRole.enum";
 import HeaderBar from "../components/UI/HeaderBar";
 import FilterBar, { FilterConfig } from "../components/UI/FilterBar";
 import Table from "../components/UI/Table";
@@ -23,9 +22,9 @@ const ListResidents: React.FC = () => {
   const [orderDirection, setOrderDirection] = useState<"asc" | "desc">("asc");
   const [orderBy, setOrderBy] = useState<string>("name");
   const { auth } = useAuth();
-  const [open, setOpen] = useState(false);
+  const [, setOpen] = useState(false);
   const [editUser, setEditUser] = useState<User | null>(null);
-  const [openNewUserModal, setOpenNewUserModal] = useState(false);
+  const [, setOpenNewUserModal] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const { total, loading, error } = useSelector(
@@ -146,11 +145,7 @@ const ListResidents: React.FC = () => {
     setEditUser(null);
   };
 
-  const handleEditChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (editUser) {
-      setEditUser({ ...editUser, [e.target.name]: e.target.value });
-    }
-  };
+ 
 
   const handleOpenNewUserModal = () => {
     setOpenNewUserModal(true);
@@ -169,32 +164,9 @@ const ListResidents: React.FC = () => {
     });
   };
 
-  const handleNewUserChange = (
-    e: React.ChangeEvent<HTMLInputElement | { name?: string; value: unknown }>
-  ) => {
-    setNewUser({ ...newUser, [e.target.name!]: e.target.value });
-  };
+ 
 
-  const handleUpdateUser = () => {
-    if (editUser) {
-      dispatch(
-        actions.updateUserRequest({
-          user: editUser,
-          authToken: auth.accessToken,
-        })
-      );
-      handleCloseEditModal();
-    }
-  };
-
-  const handleCreateUser = () => {
-    dispatch(
-      actions.createUserRequest({ user: newUser, authToken: auth.accessToken })
-    );
-    handleCloseNewUserModal();
-  };
-
-  const filteredUsers = useMemo(() => {
+   const filteredUsers = useMemo(() => {
     let result = users.filter(
       (user): user is User => user !== null && user !== undefined
     );

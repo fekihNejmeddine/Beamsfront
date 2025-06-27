@@ -1,13 +1,12 @@
 import React, { Suspense, useContext } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import {  Route, Routes  } from "react-router-dom";
 import PersistLogin from "../components/PersistLogin/PersistLogin";
 import RequireAuth from "../hooks/RequireAuth";
 import RedirectIfLoggedIn from "../hooks/RedirectIfLoggedIn";
 import routes, { AppRoute } from "./routes";
 import Preloader from "../components/UI/Preloader";
 import { ToastContainer } from "react-toastify";
-import useAuth from "../hooks/useAuth";
-import ROUTE from "../PATH/route";
+
 import { LanguageContext } from "../context/LanguageContext";
 
 const AppRouter: React.FC = () => {

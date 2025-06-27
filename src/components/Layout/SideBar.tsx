@@ -21,7 +21,6 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import RoomRoundedIcon from "@mui/icons-material/RoomRounded";
 import ReportProblemIcon from "@mui/icons-material/ReportProblem";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import useAuth from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import ROUTE from "../../PATH/route";

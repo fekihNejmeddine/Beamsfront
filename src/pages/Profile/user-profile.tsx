@@ -13,7 +13,6 @@ import {
   CircularProgress,
   Typography,
   Box,
-  Divider,
   Fade,
   Tabs,
   Tab,
@@ -141,7 +140,7 @@ const UserProfile = () => {
     const passwordValid = validatePassword(securityState.password);
 
     setIsSecurityValid(allFieldsFilled && passwordsMatch && passwordValid);
-  }, [securityState]);
+  }, [securityState,]);
 
   const validateEmail = (email: string): boolean => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

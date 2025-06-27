@@ -3,34 +3,20 @@ import axios from "axios";
 import { actions } from "./caisseSlice";
 
 import PATHS from "../../PATH/apiPath";
-import { Caisse } from "./Types";
 
 const deleteCaisse = (caisseId: number, token: string) =>
   axios.delete(`${PATHS.FEES.DELETE_CAISSE}/${caisseId}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-const fetchCaisseBalance = (caisseId: number, token: string) =>
-  axios.get(`${PATHS.FEES.GET_BY_CAISSE_BALANCE}/${caisseId}/balance`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
+
 
 const updateTransaction = (data: any, token: string) =>
   axios.put(`${PATHS.FEES.UPDATE_TRANSACTION}/${data.id}`, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
-const parseParticipants = (participants: string | any[]): any[] => {
-  if (typeof participants === "string") {
-    try {
-      return JSON.parse(participants) || [];
-    } catch (e) {
-      console.error("Failed to parse Participants:", e);
-      return [];
-    }
-  }
-  return participants || [];
-};
+
 
 function* fetchCaisseSaga(action: any) {
   try {
