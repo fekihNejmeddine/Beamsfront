@@ -392,7 +392,7 @@ const Caisse = () => {
       const participants = parseParticipants(caisse.participants);
       return participants.some((p) => p.username === auth.user.username);
     });
-  }, [caissesArray, auth?.user?.username, auth]);
+  }, [caissesArray,  auth]);
 
   useEffect(() => {
     if (selectedCaisseId === null && accessibleCaisses.length > 0) {
@@ -495,7 +495,7 @@ const Caisse = () => {
         },
       },
     ],
-    [t, getUserName]
+    [t]
   );
   const months = useMemo(() => {
     const monthList = ["all"];

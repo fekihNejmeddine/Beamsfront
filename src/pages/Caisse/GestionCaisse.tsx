@@ -659,7 +659,7 @@ const GestionCaisse: React.FC = () => {
         },
       },
     ],
-    []
+    [t]
   );
 
   const filtersConfig: FilterConfig[] = useMemo(
@@ -671,7 +671,7 @@ const GestionCaisse: React.FC = () => {
         placeholder: "Enter name",
       },
     ],
-    [t]
+    []
   );
 
   // Static years and months for transaction filters
@@ -747,7 +747,7 @@ const GestionCaisse: React.FC = () => {
         validate: {
           positive: (v: string) => {
             const value = parseFloat(v);
-            return !isNaN(value) && value >= 0 || "Le solde doit être positif ou zéro";
+            return !isNaN(value) && value >= 0 && "Le solde doit être positif ou zéro";
           },
           minBalance: (v: string) => {
             const balance = parseFloat(v) && 0;
@@ -832,7 +832,7 @@ const GestionCaisse: React.FC = () => {
         },
       },
     ],
-    [formValues, formValues.balance, formValues.minBalance,availableUsers, currentCaisse,intendedModalAction]
+    [formValues, availableUsers, currentCaisse,intendedModalAction]
   );
 
   // Helper functions
@@ -965,7 +965,7 @@ const GestionCaisse: React.FC = () => {
         },
       },
     ],
-    [t,getUserName,normalizePhoto]
+    [t]
   );
   return (
     <Box

@@ -129,34 +129,7 @@ const UserProfile = () => {
         formState.Gender !== initialValues.Gender
     );
   }, [formState, user, auth]);
-
-  // Validate security form
-  useEffect(() => {
-    const allFieldsFilled = Object.values(securityState).every(
-      (field) => field !== ""
-    );
-    const passwordsMatch =
-      securityState.password === securityState.confirmPassword;
-    const passwordValid = validatePassword(securityState.password);
-
-    setIsSecurityValid(allFieldsFilled && passwordsMatch && passwordValid);
-  }, []);
-
-  const validateEmail = (email: string): boolean => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = re.test(email);
-    if (!isValid && email) {
-      setFormErrors((prev) => ({
-        ...prev,
-        email: t("Invalid email address"),
-      }));
-    } else {
-      setFormErrors((prev) => ({ ...prev, email: "" }));
-    }
-    return isValid;
-  };
-
-  const validatePassword = (password: string): boolean => {
+ const validatePassword = (password: string): boolean => {
     const hasMinLength = password.length >= 8;
     const hasNumber = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
@@ -174,6 +147,33 @@ const UserProfile = () => {
     }
     return isValid;
   };
+  // Validate security form
+  useEffect(() => {
+    const allFieldsFilled = Object.values(securityState).every(
+      (field) => field !== ""
+    );
+    const passwordsMatch =
+      securityState.password === securityState.confirmPassword;
+    const passwordValid = validatePassword(securityState.password);
+
+    setIsSecurityValid(allFieldsFilled && passwordsMatch && passwordValid);
+  }, [securityState,validatePassword]);
+
+  const validateEmail = (email: string): boolean => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isValid = re.test(email);
+    if (!isValid && email) {
+      setFormErrors((prev) => ({
+        ...prev,
+        email: t("Invalid email address"),
+      }));
+    } else {
+      setFormErrors((prev) => ({ ...prev, email: "" }));
+    }
+    return isValid;
+  };
+
+ 
 
   const handleTextFieldChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>

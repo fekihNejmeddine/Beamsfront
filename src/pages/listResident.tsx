@@ -44,17 +44,7 @@ const ListResidents: React.FC = () => {
     role: "Resident",
   });
 
-  const [setNewUser] = useState<Omit<User, "id">>({
-    username: "",
-    lastName: "",
-    email: "",
-    role: "Resident",
-    password: "",
-    currentPassword: "",
-    Gender: "",
-  });
-
-  // Filter configuration for role
+    // Filter configuration for role
   const filtersConfig: FilterConfig[] = [];
 
   const loadUsers = useCallback(() => {

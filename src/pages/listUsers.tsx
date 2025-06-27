@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import { Edit,  Add } from "@mui/icons-material";
 import useAuth from "../hooks/useAuth";
-import Swal from "sweetalert2";
 import { User } from "../types/interface/User";
 import { useTranslation } from "react-i18next";
 import Preloader from "../components/UI/Preloader";

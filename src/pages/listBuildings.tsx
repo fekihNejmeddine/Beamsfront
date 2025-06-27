@@ -64,12 +64,7 @@ const ListBuildings: React.FC = () => {
     owner: "",
   });
 
-  const {
-    formState: { errors },
-  } = useForm<Building | Omit<Building, "id">>({
-    mode: "onChange",
-  });
-
+  
   useEffect(() => {
     dispatch(
       actions.fetchBuildingsRequest({

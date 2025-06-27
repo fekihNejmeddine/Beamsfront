@@ -44,7 +44,7 @@ const a = isLoading;
     return () => {
       isMounted = false;
     };
-  }, [auth?.accessToken]);
+  }, [auth?.accessToken,refresh]);
 
   return <>{props.children}</>;
 };

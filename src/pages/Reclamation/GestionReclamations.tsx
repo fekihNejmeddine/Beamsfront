@@ -26,8 +26,6 @@ import {
   Tooltip,
   Chip,
   Avatar,
-  useTheme,
-  useMediaQuery,
 } from "@mui/material";
 import {
   Delete as DeleteIcon,
@@ -174,7 +172,6 @@ const GestionReclamations: React.FC = () => {
     (state: RootState) => state.reclamation
   );
   const { t } = useTranslation();
-  const theme = useTheme();
 
   const [customActiveTab, setCustomActiveTab] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);

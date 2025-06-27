@@ -488,8 +488,6 @@ const Calendar: React.FC = () => {
     selectedEvent,
     selectedDay,
     validation.values,
-    categories,
-    statusOptions,
     users,
     t,
   ]);
