@@ -495,7 +495,7 @@ const Caisse = () => {
         },
       },
     ],
-    [t]
+    [t,getUserName]
   );
   const months = useMemo(() => {
     const monthList = ["all"];
