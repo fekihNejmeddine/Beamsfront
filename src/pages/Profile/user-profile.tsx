@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   TextField,
@@ -129,12 +129,14 @@ const UserProfile = () => {
         formState.Gender !== initialValues.Gender
     );
   }, [formState, user, auth]);
- const validatePassword = (password: string): boolean => {
+ const validatePassword = useCallback(
+  (password: string): boolean => {
     const hasMinLength = password.length >= 8;
     const hasNumber = /\d/.test(password);
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
 
     const isValid = hasMinLength && hasNumber && hasSpecialChar;
+
     if (!isValid && password) {
       setFormErrors((prev) => ({
         ...prev,
@@ -145,8 +147,12 @@ const UserProfile = () => {
     } else {
       setFormErrors((prev) => ({ ...prev, password: "" }));
     }
+
     return isValid;
-  };
+  },
+  [t, setFormErrors]
+);
+
   // Validate security form
   useEffect(() => {
     const allFieldsFilled = Object.values(securityState).every(

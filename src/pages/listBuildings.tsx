@@ -17,7 +17,6 @@ import FilterBar from "../components/UI/FilterBar";
 import Table from "../components/UI/Table";
 import { t } from "i18next";
 import { EntityModal, FieldConfig } from "../components/UI/Modal";
-import { useForm } from "react-hook-form";
 import CustomDelete from "../components/UI/Delete";
 
 const ListBuildings: React.FC = () => {
@@ -238,7 +237,7 @@ const ListBuildings: React.FC = () => {
     return buildings.filter(
       (building): building is Building => !building.isDeleted
     );
-  }, [buildings, orderDirection, page, rowsPerPage, total,orderDirection,page,rowsPerPage,total]);
+  }, [buildings, orderDirection, page, rowsPerPage, total]);
   const handlePageChange = (newPage: number) => {
     const maxPage = Math.ceil(total / rowsPerPage) - 1;
     const validPage = Math.max(0, Math.min(newPage, maxPage));

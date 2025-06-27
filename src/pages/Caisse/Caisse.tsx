@@ -1,4 +1,10 @@
-import React, { useEffect, useState, ChangeEvent, useMemo, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  ChangeEvent,
+  useMemo,
+  useCallback,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, caissesSelectors } from "../../store/fees/caisseSlice";
 import { RootState, AppDispatch } from "../../store/store";
@@ -392,7 +398,7 @@ const Caisse = () => {
       const participants = parseParticipants(caisse.participants);
       return participants.some((p) => p.username === auth.user.username);
     });
-  }, [caissesArray,  auth]);
+  }, [caissesArray, auth]);
 
   useEffect(() => {
     if (selectedCaisseId === null && accessibleCaisses.length > 0) {
@@ -407,16 +413,16 @@ const Caisse = () => {
     }
     return yearList;
   }, []);
- const getUserName = useCallback(
-  (userId?: number) => {
-    if (!userId) return t("Utilisateur inconnu");
-    const user = users[userId];
-    return user
-      ? `${user.username} ${user.lastName || ""}`.trim() || user.username
-      : t("Utilisateur inconnu");
-  },
-  [users, t] // Add users and t as dependencies
-);
+  const getUserName = useCallback(
+    (userId?: number) => {
+      if (!userId) return t("Utilisateur inconnu");
+      const user = users[userId];
+      return user
+        ? `${user.username} ${user.lastName || ""}`.trim() || user.username
+        : t("Utilisateur inconnu");
+    },
+    [users, t] // Add users and t as dependencies
+  );
   const transactionColumns = useMemo(
     () => [
       // {
@@ -498,7 +504,7 @@ const Caisse = () => {
         },
       },
     ],
-    [t,getUserName]
+    [t, getUserName]
   );
   const months = useMemo(() => {
     const monthList = ["all"];

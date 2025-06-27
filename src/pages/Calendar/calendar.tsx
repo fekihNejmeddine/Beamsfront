@@ -104,28 +104,28 @@ const Calendar: React.FC = () => {
   }));
 
   const users = useSelector(usersSelectors.selectAll);
- 
-  const categories = [
-    { id: 1, type: "important", title: t("Strategic IT Meeting") },
-    { id: 2, type: "important", title: t("Software Architecture Review") },
-    { id: 3, type: "important", title: t("Client Meeting") },
-    { id: 4, type: "normal", title: t("Team Meet") },
-    { id: 5, type: "normal", title: t("Daily Stand-up (Scrum)") },
-    { id: 6, type: "normal", title: t("Code Review") },
-    { id: 7, type: "normal", title: t("User Workshop (UX/UI)") },
-    { id: 8, type: "normal", title: t("Sprint Planning") },
-    { id: 9, type: "normal", title: t("Sprint Retrospective") },
-    { id: 11, type: "low", title: t("Internal Training") },
-    { id: 12, type: "low", title: t("Project Meeting") },
-    { id: 13, type: "low", title: t("Project Update (Progress)") },
-  ];
 
-  const statusOptions = [
-    { id: 1, title: t("scheduled") },
-    { id: 2, title: t("in-progress") },
-    { id: 3, title: t("completed") },
-    { id: 4, title: t("cancelled") },
-  ];
+  const categories = useMemo(() => [
+  { id: 1, type: "important", title: t("Strategic IT Meeting") },
+  { id: 2, type: "important", title: t("Software Architecture Review") },
+  { id: 3, type: "important", title: t("Client Meeting") },
+  { id: 4, type: "normal", title: t("Team Meet") },
+  { id: 5, type: "normal", title: t("Daily Stand-up (Scrum)") },
+  { id: 6, type: "normal", title: t("Code Review") },
+  { id: 7, type: "normal", title: t("User Workshop (UX/UI)") },
+  { id: 8, type: "normal", title: t("Sprint Planning") },
+  { id: 9, type: "normal", title: t("Sprint Retrospective") },
+  { id: 11, type: "low", title: t("Internal Training") },
+  { id: 12, type: "low", title: t("Project Meeting") },
+  { id: 13, type: "low", title: t("Project Update (Progress)") },
+], [t]);
+
+const statusOptions = useMemo(() => [
+  { id: 1, title: t("scheduled") },
+  { id: 2, title: t("in-progress") },
+  { id: 3, title: t("completed") },
+  { id: 4, title: t("cancelled") },
+], [t]);
 
   const initialLocation =
     meetingRooms.find((room) => room.id === selectedRoom)?.location || "";
@@ -330,8 +330,6 @@ const Calendar: React.FC = () => {
       : selectedDay
       ? moment(selectedDay).endOf("day").format("YYYY-MM-DD HH:mm")
       : "";
-   
-  
 
     return [
       {
@@ -395,13 +393,13 @@ const Calendar: React.FC = () => {
           validate: (value) => {
             if (
               (value === t("scheduled") || value === t("cancelled")) &&
-              (validation.values.status === t("in-progress") || 
-               validation.values.status === t("completed"))
+              (validation.values.status === t("in-progress") ||
+                validation.values.status === t("completed"))
             ) {
               return t("Cannot revert to scheduled or cancelled");
             }
             if (
-              value === t("in-progress") && 
+              value === t("in-progress") &&
               validation.values.status === t("completed")
             ) {
               return t("Cannot revert to in-progress");
@@ -484,13 +482,7 @@ const Calendar: React.FC = () => {
         },
       },
     ];
-  }, [NumParticipant,
-    selectedEvent,
-    selectedDay,
-    validation.values,
-    users,
-    t,
-  ]);
+  }, [NumParticipant, selectedEvent, selectedDay, validation.values, users, t,categories,statusOptions]);
   console.log("Current participants:", validation.values.participants);
   console.log("All users:", users);
   useEffect(() => {
@@ -500,7 +492,7 @@ const Calendar: React.FC = () => {
     if (selectedRoomData) {
       validation.setFieldValue("location", selectedRoomData.location);
     }
-  }, [validation.values.idMeetingRoom, meetingRooms,validation]);
+  }, [validation.values.idMeetingRoom, meetingRooms, validation]);
 
   const formattedEvents = useMemo(() => {
     return events.map((event: Event) => {
@@ -533,7 +525,7 @@ const Calendar: React.FC = () => {
         authToken: auth.accessToken,
       })
     );
-  }, [dispatch,auth.accessToken]);
+  }, [dispatch, auth.accessToken]);
 
   useEffect(() => {
     if (meetingRooms.length > 0 && selectedRoom === null) {
@@ -736,7 +728,7 @@ const Calendar: React.FC = () => {
         })
       );
     },
-    [dispatch, auth?.accessToken, selectedRoom,auth?.user?.id]
+    [dispatch, auth?.accessToken, selectedRoom, auth?.user?.id]
   );
 
   const toggle = () => {
@@ -814,10 +806,8 @@ const Calendar: React.FC = () => {
       });
       setModal(true);
     },
-    [validation, auth?.user?.id,auth?.user?.role]
+    [validation, auth?.user?.id, auth?.user?.role]
   );
-
-  
 
   const handleMoreLinkClick = (arg: MoreLinkArg) => {
     setDayEvents(arg.allSegs.map((seg) => seg.event));

@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  useCallback,
-} from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, caissesSelectors } from "../../store/fees/caisseSlice";
 import { RootState, AppDispatch } from "../../store/store";
@@ -28,15 +23,13 @@ import {
 } from "@mui/material";
 import {
   Edit as EditIcon,
- 
   AttachMoney as MoneyIcon,
   Visibility as VisibilityIcon,
-
 } from "@mui/icons-material";
 import useAuth from "../../hooks/useAuth";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import { StyledButton } from "../Style";
-import {  actions as actionsUser } from "../../store/user/slice";
+import { actions as actionsUser } from "../../store/user/slice";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import Table from "../../components/UI/Table";
@@ -82,12 +75,10 @@ const GestionCaisse: React.FC = () => {
     total,
     Ttotal,
     transactions,
-
   } = useSelector((state: RootState) => state.fees);
-  const {
-    entities: users,
-    loading: usersLoading,
-  } = useSelector((state: RootState) => state.users);
+  const { entities: users, loading: usersLoading } = useSelector(
+    (state: RootState) => state.users
+  );
 
   // Modal state
   const [openModal, setOpenModal] = useState(false);
@@ -98,10 +89,8 @@ const GestionCaisse: React.FC = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [openTransactionsDialog, setOpenTransactionsDialog] = useState(false);
   const [selectedCaisseId, setSelectedCaisseId] = useState<number | null>(null);
-  const [, setOpenTransactionConfirmDialog] =
-    useState(false);
-  const [, setPendingTransaction] =
-    useState<TransactionFormData | null>(null);
+  const [, setOpenTransactionConfirmDialog] = useState(false);
+  const [, setPendingTransaction] = useState<TransactionFormData | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string[]>([]);
   const [, setAmountError] = useState<string | null>(null);
 
@@ -368,8 +357,6 @@ const GestionCaisse: React.FC = () => {
     [fetchMoreUsers]
   );
 
-  
-
   const handleCreateCaisse = useCallback(
     async (data: typeof formValues) => {
       setIsProcessing(true);
@@ -482,9 +469,6 @@ const GestionCaisse: React.FC = () => {
     [dispatch, auth, currentCaisse]
   );
 
-  
-
-  
   // Table and filter handlers
   const handleSort = useCallback(
     (columnId: string) => {
@@ -736,27 +720,34 @@ const GestionCaisse: React.FC = () => {
         },
       },
       {
-      label: "Balance",
-      name: "balance",
-      type: "number",
-      value: formValues.balance,
-      required: true,
-      inputProps: { min: 0, step: 0.01 },
-      rules: {
-        required: "Le solde est requis",
-        validate: {
-          positive: (v: string) => {
-            const value = parseFloat(v);
-            return !isNaN(value) && value >= 0 && "Le solde doit être positif ou zéro";
-          },
-          minBalance: (v: string) => {
-            const balance = parseFloat(v) && 0;
-            const minBalance = parseFloat(formValues.minBalance) && 0;
-            return balance >= minBalance && "Le solde ne peut pas être inférieur au solde minimum";
+        label: "Balance",
+        name: "balance",
+        type: "number",
+        value: formValues.balance,
+        required: true,
+        inputProps: { min: 0, step: 0.01 },
+        rules: {
+          required: "Le solde est requis",
+          validate: {
+            positive: (v: string) => {
+              const value = parseFloat(v);
+              return (
+                !isNaN(value) &&
+                value >= 0 &&
+                "Le solde doit être positif ou zéro"
+              );
+            },
+            minBalance: (v: string) => {
+              const balance = parseFloat(v) && 0;
+              const minBalance = parseFloat(formValues.minBalance) && 0;
+              return (
+                balance >= minBalance &&
+                "Le solde ne peut pas être inférieur au solde minimum"
+              );
+            },
           },
         },
       },
-    },
       {
         label: "Minimum Balance",
         name: "minBalance",
@@ -826,13 +817,12 @@ const GestionCaisse: React.FC = () => {
           validate: {
             unique: (v: UserOption[]) =>
               new Set(v.map((p) => p.id)).size === v.length ||
-            
               "Les participants doivent être uniques",
           },
         },
       },
     ],
-    [formValues, availableUsers, currentCaisse,intendedModalAction]
+    [formValues, availableUsers, currentCaisse, intendedModalAction]
   );
 
   // Helper functions
@@ -840,8 +830,10 @@ const GestionCaisse: React.FC = () => {
     return photo.replace(/^"|"$/g, "").replace(/\\"/g, "");
   };
 
-  const normalizePhoto = (photo: string | string[] | undefined): string[] => {
+  const normalizePhoto = useCallback(
+  (photo: string | string[] | undefined): string[] => {
     if (!photo) return [];
+
     if (typeof photo === "string") {
       try {
         const parsed = photo.startsWith("[")
@@ -851,25 +843,41 @@ const GestionCaisse: React.FC = () => {
           ? parsed.map(cleanPhotoUrl)
           : [cleanPhotoUrl(parsed)];
       } catch (e) {
-        console.error("Failed to parse Photo:", photo, e);
+        console.error("Failed to parse photo:", photo, e);
         return [cleanPhotoUrl(photo)];
       }
     }
+
     return photo.map(cleanPhotoUrl);
-  };
+  },
+  [cleanPhotoUrl] // ⚠️ ajoute ici si cleanPhotoUrl vient de useCallback ou d'un scope externe
+);
+
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return "Inconnu";
     return format(new Date(dateString), "PPpp", { locale: fr });
   };
 
-  const getUserName = (userId?: number) => {
-    if (!userId) return "Utilisateur inconnu";
-    const user = users[userId];
-    return user
-      ? `${user.username} ${user.lastName || ""}`.trim() || user.username
-      : "Admin";
-  };
+  // const getUserName = useCallback(userId?: number) => {
+  //   if (!userId) return "Utilisateur inconnu";
+  //   const user = users[userId];
+  //   return user
+  //     ? `${user.username} ${user.lastName || ""}`.trim() || user.username
+  //     : "Admin";
+  // };
+  const getUserName = useCallback(
+    (userId?: number) => {
+      if (!userId) return "Utilisateur inconnu"; // Si userId est null/undefined/0 => retourne texte par défaut.
+
+      const user = users[userId]; // Récupère l'utilisateur via son ID.
+
+      return user
+        ? `${user.username} ${user.lastName || ""}`.trim() || user.username
+        : "Admin"; // Si user existe, concatène username + lastName (si présent), sinon "Admin".
+    },
+    [users]
+  );
 
   // Cleanup photo previews
   useEffect(() => {
@@ -965,7 +973,7 @@ const GestionCaisse: React.FC = () => {
         },
       },
     ],
-    [t]
+    [t, getUserName, normalizePhoto]
   );
   return (
     <Box
