@@ -237,7 +237,7 @@ const ListBuildings: React.FC = () => {
     return buildings.filter(
       (building): building is Building => !building.isDeleted
     );
-  }, [buildings, orderDirection, page, rowsPerPage, total]);
+  }, [buildings]);
   const handlePageChange = (newPage: number) => {
     const maxPage = Math.ceil(total / rowsPerPage) - 1;
     const validPage = Math.max(0, Math.min(newPage, maxPage));

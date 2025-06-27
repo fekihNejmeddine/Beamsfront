@@ -826,9 +826,14 @@ const GestionCaisse: React.FC = () => {
   );
 
   // Helper functions
-  const cleanPhotoUrl = (photo: string): string => {
+
+const cleanPhotoUrl = useCallback(
+  (photo: string): string => {
     return photo.replace(/^"|"$/g, "").replace(/\\"/g, "");
-  };
+  },
+  []
+);
+
 
   const normalizePhoto = useCallback(
   (photo: string | string[] | undefined): string[] => {
