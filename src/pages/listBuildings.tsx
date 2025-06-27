@@ -23,7 +23,7 @@ import CustomDelete from "../components/UI/Delete";
 const ListBuildings: React.FC = () => {
   const theme = useTheme();
   const dispatch = useDispatch<AppDispatch>();
-  const { total, loading, error } = useSelector(
+  const { total, loading } = useSelector(
     (state: RootState) => state.buildings
   );
   const buildings = useSelector(buildingsSelectors.selectAll);
@@ -243,7 +243,7 @@ const ListBuildings: React.FC = () => {
     return buildings.filter(
       (building): building is Building => !building.isDeleted
     );
-  }, [buildings, orderDirection, page, rowsPerPage, total]);
+  }, [buildings, orderDirection, page, rowsPerPage, total,orderDirection,page,rowsPerPage,total]);
   const handlePageChange = (newPage: number) => {
     const maxPage = Math.ceil(total / rowsPerPage) - 1;
     const validPage = Math.max(0, Math.min(newPage, maxPage));

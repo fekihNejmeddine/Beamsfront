@@ -9,7 +9,6 @@ import {
   Button,
   Typography,
   Container,
-
   Modal,
   Box,
   TextField,
@@ -52,7 +51,6 @@ import {
 } from "../../store/fees/Types";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import { useTranslation } from "react-i18next";
-
 
 const modalStyle = {
   position: "absolute",
@@ -225,7 +223,7 @@ const Caisse = () => {
 
     if (value) {
       const amount = parseFloat(value);
-      
+
       if (currentBalance - amount <= minBalance) {
         setAmountError(t("The amount cannot exceed the current minbalance"));
       } else {
@@ -394,7 +392,7 @@ const Caisse = () => {
       const participants = parseParticipants(caisse.participants);
       return participants.some((p) => p.username === auth.user.username);
     });
-  }, [caissesArray, auth?.user?.username]);
+  }, [caissesArray, auth?.user?.username, auth]);
 
   useEffect(() => {
     if (selectedCaisseId === null && accessibleCaisses.length > 0) {
@@ -497,7 +495,7 @@ const Caisse = () => {
         },
       },
     ],
-    [t]
+    [t, getUserName]
   );
   const months = useMemo(() => {
     const monthList = ["all"];
@@ -577,15 +575,7 @@ const Caisse = () => {
 
       return matchesYear && matchesMonth && matchesUser;
     });
-  }, [
-    handleSearch,
-    transactions,
-    yearFilter,
-    monthFilter,
-    userFilter,
-    auth?.user?.id,
-    selectedCaisseId,
-  ]);
+  }, [transactions, yearFilter, monthFilter, userFilter, auth?.user?.id]);
 
   const handleOpenTransactionModal = (transaction?: ITransaction) => {
     setSelectedTransaction(transaction || null);
@@ -612,7 +602,6 @@ const Caisse = () => {
     transactionFormik.resetForm();
     setPhotoPreview([]);
   };
-
 
   const handleCloseActionModal = () => {
     setOpenActionModal(false);
@@ -644,12 +633,7 @@ const Caisse = () => {
     );
   };
 
-  const {
-   
-    Ttotal,
-
-    
-  } = useSelector((state: RootState) => state.fees);
+  const { Ttotal } = useSelector((state: RootState) => state.fees);
   const handleTPageChange = (newPage: number) => {
     const maxPage = Math.ceil(Ttotal / TrowsPerPage) - 1;
     const validPage = Math.max(0, Math.min(newPage, maxPage));

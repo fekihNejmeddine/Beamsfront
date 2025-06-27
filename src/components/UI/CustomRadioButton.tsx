@@ -1,23 +1,10 @@
 import React from "react";
 import {
-  Radio,
   FormControl,
 
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
 
-const StyledRadio = styled(Radio)(({ theme }) => ({
-  color: theme.palette.text.secondary,
-  "&.Mui-checked": {
-    color: theme.palette.primary.main,
-  },
-  "&:hover": {
-    backgroundColor: theme.palette.action.hover,
-  },
-  "&.Mui-disabled": {
-    color: theme.palette.action.disabled,
-  },
-}));
+
 
 interface CustomRadioButtonProps {
   component?: React.ElementType;

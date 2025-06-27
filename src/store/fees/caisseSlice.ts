@@ -101,7 +101,7 @@ const feesSlice = createSlice({
         changes: action.payload,
       });
       const caisse = action.payload.isDeleted;
-      if (caisse == true) {
+      if (caisse === true) {
         caissesAdapter.removeOne(state, action.payload.id);
         state.total -= 1;
       }

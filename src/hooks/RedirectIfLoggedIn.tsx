@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import  { useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import useAuth from "./useAuth";
-import { boolean } from "yup";
-import routes from "../routes/routes";
+
 
 const RedirectIfLoggedIn = ({ children }) => {
   const { auth } = useAuth();

@@ -117,8 +117,7 @@ function* onMoveEvent(action: Payload<{ event: Event; token: string }>) {
       return;
     }
 
-    const updatedEvent = { ...event, waitingPosition: 1 };
-    
+   
     yield put(actions.moveEventSuccess(message));
   } catch (error) {
     yield put(actions.moveEventFail(handleApiError(error)));

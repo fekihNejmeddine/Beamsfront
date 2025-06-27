@@ -66,18 +66,18 @@ const ListUsers: React.FC = () => {
     limit: 5,
     searchQuery: "",
     role: "",
-    idsyndic: auth.role == UserRole.SYNDIC ? auth.user.id : undefined,
+    idsyndic: auth.role === UserRole.SYNDIC ? auth.user.id : undefined,
   });
 
   const [newUser, setNewUser] = useState<Omit<User, "id">>({
     username: "",
     lastName: "",
     email: "",
-    role: auth.role == UserRole.SYNDIC ? UserRole.RESIDENT : "",
+    role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : "",
     password: "",
     currentPassword: "",
     Gender: "",
-    idsyndic: auth.role == UserRole.SYNDIC ? auth.user.id : undefined,
+    idsyndic: auth.role ===UserRole.SYNDIC ? auth.user.id : undefined,
   });
 
   const roles = useMemo(
@@ -116,14 +116,14 @@ console.log(auth)
           page: filters.page + 1,
           limit: filters.limit,
           search: filters.searchQuery,
-          role: auth.role == UserRole.SYNDIC ? UserRole.RESIDENT : filters.role,
+          role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : filters.role,
           pageSize: rowsPerPage,
           authToken: auth.accessToken,
-          idsyndic: auth.role == UserRole.SYNDIC ? auth.user.id : filters.idsyndic,
+          idsyndic: auth.role === UserRole.SYNDIC ? auth.user.id : filters.idsyndic,
         })
       );
     }
-  }, [dispatch, filters.page, filters.limit, filters.role, rowsPerPage, auth]);
+  }, [dispatch, filters.page, filters.limit, filters.role, rowsPerPage, auth,filters.idsyndic,filters.searchQuery]);
 
   useEffect(() => {
     loadUsers();
@@ -138,10 +138,10 @@ console.log(auth)
           page: 1,
           limit: filters.limit,
           search: filters.searchQuery,
-          role: auth.role == UserRole.SYNDIC ? UserRole.RESIDENT : filters.role,
+          role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : filters.role,
           pageSize: rowsPerPage,
           authToken: auth.accessToken,
-          idsyndic: auth.role == UserRole.SYNDIC ? auth.user.id : filters.idsyndic,
+          idsyndic: auth.role === UserRole.SYNDIC ? auth.user.id : filters.idsyndic,
         })
       );
     }
@@ -152,8 +152,8 @@ console.log(auth)
       page: 0,
       limit: 5,
       searchQuery: "",
-      role: auth.role == UserRole.SYNDIC ? UserRole.RESIDENT : "",
-      idsyndic: auth.role == UserRole.SYNDIC ? auth.idsyndic : undefined,
+      role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : "",
+      idsyndic: auth.role === UserRole.SYNDIC ? auth.idsyndic : undefined,
     });
     setPage(0);
     if (auth.accessToken) {
@@ -165,31 +165,13 @@ console.log(auth)
           role: auth.role === UserRole.SYNDIC ? UserRole.RESIDENT : "",
           pageSize: rowsPerPage,
           authToken: auth.accessToken,
-          idsyndic: auth.role == UserRole.SYNDIC ? auth.user.id : filters.idsyndic,
+          idsyndic: auth.role === UserRole.SYNDIC ? auth.user.id : filters.idsyndic,
         })
       );
     }
   };
 
-  const confirmDelete = (user: User) => {
-    Swal.fire({
-      title: t("Are you sure?"),
-      text: t(`Do you really want to delete ${user.username}?`),
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: t("Yes, delete"),
-      cancelButtonText: t("Cancel"),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        dispatch(
-          actions.deleteUserRequest({
-            user,
-            authToken: auth.accessToken,
-          })
-        );
-      }
-    });
-  };
+
 
   const handleOpenEditModal = (user: User) => {
     setEditUser(user);
@@ -385,7 +367,7 @@ console.log(auth)
     }
 
     return baseFields;
-  }, [auth.role, intendedModalAction, editUser, newUser, t]);
+  }, [auth.role, intendedModalAction, editUser, newUser, t,openNewUserModal]);
 
   const handleCloseModal = () => {
     setOpen(false);

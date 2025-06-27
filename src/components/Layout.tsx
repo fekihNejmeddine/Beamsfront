@@ -30,7 +30,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     if (isMobile && sidebarOpen) {
       setSidebarOpen(false);
     }
-  }, [location.pathname, isMobile, isRTL]);
+  }, [location.pathname, isMobile, isRTL,sidebarOpen]);
 
   return (
     <Box

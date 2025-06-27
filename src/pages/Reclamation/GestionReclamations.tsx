@@ -47,7 +47,6 @@ import {
 } from "../../store/reclamation/slice";
 import { useTranslation } from "react-i18next";
 import { Status } from "../../types/enum/Status.enum";
-import CustomInput from "../../components/UI/Input";
 import { EntityModal, FieldConfig } from "../../components/UI/Modal"; // Import from Modal.tsx
 
 // Styled Components (unchanged)
@@ -176,7 +175,6 @@ const GestionReclamations: React.FC = () => {
   );
   const { t } = useTranslation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [customActiveTab, setCustomActiveTab] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -230,7 +228,7 @@ const GestionReclamations: React.FC = () => {
   };
   useEffect(() => {
     dispatch(fetchAllReclamations({ idSyndic: auth?.user?.id }));
-  }, [dispatch]);
+  }, [dispatch,auth?.user?.id]);
 
   const filteredReclamations = reclamations.filter((rec) =>
     customActiveTab === "All" ? true : rec.status === customActiveTab
@@ -242,15 +240,7 @@ const GestionReclamations: React.FC = () => {
   );
 
   const countAll = reclamations.length;
-  const countPending = reclamations.filter(
-    (rec) => rec.status === Status.Pending
-  ).length;
-  const countInProgress = reclamations.filter(
-    (rec) => rec.status === Status.InProgress
-  ).length;
-  const countResolved = reclamations.filter(
-    (rec) => rec.status === Status.Resolved
-  ).length;
+  
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,

@@ -167,14 +167,14 @@ const routes: AppRoute[] = [
     allowedRoles: ["Resident"],
   },
   //utility
-  {
-    path: ROUTE.ERROR_403,
-    element: <Error_403 />,
-  },
-  {
-    path: "*",
-    element: <Error_404 />,
-  },
+  // {
+  //   path: ROUTE.ERROR_403,
+  //   element: <Error_403 />,
+  // },
+  // {
+  //   path: "*",
+  //   element: <Error_404 />,
+  // },
 ];
 
 export default routes;

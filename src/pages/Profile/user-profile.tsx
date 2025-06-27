@@ -140,7 +140,7 @@ const UserProfile = () => {
     const passwordValid = validatePassword(securityState.password);
 
     setIsSecurityValid(allFieldsFilled && passwordsMatch && passwordValid);
-  }, [securityState,]);
+  }, []);
 
   const validateEmail = (email: string): boolean => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

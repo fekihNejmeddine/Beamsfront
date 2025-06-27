@@ -23,11 +23,11 @@ const ListResidents: React.FC = () => {
   const [orderBy, setOrderBy] = useState<string>("name");
   const { auth } = useAuth();
   const [, setOpen] = useState(false);
-  const [editUser, setEditUser] = useState<User | null>(null);
+  const [, setEditUser] = useState<User | null>(null);
   const [, setOpenNewUserModal] = useState(false);
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  const { total, loading, error } = useSelector(
+  const { total, loading } = useSelector(
     (state: RootState) => state.users
   );
   const users = useSelector(usersSelectors.selectAll);
@@ -44,7 +44,7 @@ const ListResidents: React.FC = () => {
     role: "Resident",
   });
 
-  const [newUser, setNewUser] = useState<Omit<User, "id">>({
+  const [setNewUser] = useState<Omit<User, "id">>({
     username: "",
     lastName: "",
     email: "",
@@ -70,7 +70,7 @@ const ListResidents: React.FC = () => {
         })
       );
     }
-  }, [dispatch, filters.page, filters.limit, rowsPerPage, auth.accessToken]);
+  }, [dispatch, filters.searchQuery,filters.page, filters.limit, rowsPerPage, auth.accessToken]);
 
   useEffect(() => {
     loadUsers();
@@ -140,31 +140,9 @@ const ListResidents: React.FC = () => {
     setOpen(true);
   };
 
-  const handleCloseEditModal = () => {
-    setOpen(false);
-    setEditUser(null);
-  };
-
- 
-
   const handleOpenNewUserModal = () => {
     setOpenNewUserModal(true);
   };
-
-  const handleCloseNewUserModal = () => {
-    setOpenNewUserModal(false);
-    setNewUser({
-      username: "",
-      lastName: "",
-      email: "",
-      role: "Resident",
-      password: "",
-      currentPassword: "",
-      Gender: "",
-    });
-  };
-
- 
 
    const filteredUsers = useMemo(() => {
     let result = users.filter(

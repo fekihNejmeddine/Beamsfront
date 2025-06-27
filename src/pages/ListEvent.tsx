@@ -78,7 +78,7 @@ const ListEvent: React.FC = () => {
         userId: auth.user.id,
       })
     );
-  }, [dispatch]);
+  }, [dispatch,activeTab,auth.user.id,currentPage,pagination.limit]);
 
   const filteredEvents = events.filter((event) =>
     activeTab === "All"

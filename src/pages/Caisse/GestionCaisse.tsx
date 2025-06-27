@@ -3,7 +3,6 @@ import React, {
   useEffect,
   useMemo,
   useCallback,
-  ChangeEvent,
 } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, caissesSelectors } from "../../store/fees/caisseSlice";
@@ -21,7 +20,6 @@ import {
   Tooltip,
   Divider,
   useTheme,
-  
   Button,
   FormControl,
   InputLabel,
@@ -45,7 +43,6 @@ import Table from "../../components/UI/Table";
 import FilterBar, { FilterConfig } from "../../components/UI/FilterBar";
 import { Caisse, Transaction } from "../../store/fees/Types";
 import { EntityModal, FieldConfig } from "../../components/UI/Modal";
-import Swal from "sweetalert2";
 import CustomDelete from "../../components/UI/Delete";
 import { format, getYear, getMonth } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -674,7 +671,7 @@ const GestionCaisse: React.FC = () => {
         placeholder: "Enter name",
       },
     ],
-    []
+    [t]
   );
 
   // Static years and months for transaction filters
@@ -753,9 +750,9 @@ const GestionCaisse: React.FC = () => {
             return !isNaN(value) && value >= 0 || "Le solde doit être positif ou zéro";
           },
           minBalance: (v: string) => {
-            const balance = parseFloat(v) || 0;
-            const minBalance = parseFloat(formValues.minBalance) || 0;
-            return balance >= minBalance || "Le solde ne peut pas être inférieur au solde minimum";
+            const balance = parseFloat(v) && 0;
+            const minBalance = parseFloat(formValues.minBalance) && 0;
+            return balance >= minBalance && "Le solde ne peut pas être inférieur au solde minimum";
           },
         },
       },
@@ -835,7 +832,7 @@ const GestionCaisse: React.FC = () => {
         },
       },
     ],
-    [formValues, formValues.balance, formValues.minBalance,availableUsers, intendedModalAction]
+    [formValues, formValues.balance, formValues.minBalance,availableUsers, currentCaisse,intendedModalAction]
   );
 
   // Helper functions
@@ -968,7 +965,7 @@ const GestionCaisse: React.FC = () => {
         },
       },
     ],
-    [t]
+    [t,getUserName,normalizePhoto]
   );
   return (
     <Box

@@ -118,7 +118,7 @@ const usersSlice = createSlice({
         changes: action.payload,
       });
       const caisse = action.payload.isDeleted;
-      if (caisse == true) {
+      if (caisse === true) {
         usersAdapter.removeOne(state, action.payload.id);
         state.total -= 1;
       }

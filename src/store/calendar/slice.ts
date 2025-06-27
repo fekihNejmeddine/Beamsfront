@@ -121,10 +121,10 @@ const calendarSlice = createSlice({
     },
     addEventSuccess: (state, action: PayloadAction<Event>) => {
       const eventExists = state.events.some(
-        (event) => event.id == action.payload.id
+        (event) => event.id === action.payload.id
       );
       eventsAdapter.addOne(state, action.payload);
-      if (!eventExists && action.payload.status != "cancelled") {
+      if (!eventExists && action.payload.status !== "cancelled") {
         state.events.push(action.payload);
         state.isEventUpdated = true;
       }
@@ -148,11 +148,11 @@ const calendarSlice = createSlice({
     updateEventSuccess: (state, action: PayloadAction<Event>) => {
       if (action.payload.status !== "cancelled") {
         state.events = state.events.map((event) =>
-          event.id == action.payload.id ? action.payload : event
+          event.id === action.payload.id ? action.payload : event
         );
       } else {
         state.events = state.events.filter(
-          (event) => event.id != action.payload.id
+          (event) => event.id !== action.payload.id
         );
       }
       state.loading = false;
@@ -177,7 +177,7 @@ const calendarSlice = createSlice({
       state.EventUpdateSuccess = null;
     },
     deleteEventSuccess: (state, action: PayloadAction<number>) => {
-      state.events = state.events.filter((event) => event.id != action.payload);
+      state.events = state.events.filter((event) => event.id !== action.payload);
       state.isEventUpdated = true;
       state.EventUpdateSuccess = "Event deleted successfully";
       state.loading = false;

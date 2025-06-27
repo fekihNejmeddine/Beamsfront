@@ -10,7 +10,7 @@ import {
 import signin from "../../assets/signin1.png";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate  } from "react-router-dom";
 import axios from "axios";
 import PATHS from "../../PATH/apiPath";
 import Input from "../../components/UI/Input";
@@ -30,7 +30,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [emailError, setEmailError] = useState<string | null>(null);
+  const [, setEmailError] = useState<string | null>(null);
   const [resetEmailSent, setResetEmailSent] = useState(false);
 
   const {

@@ -63,7 +63,7 @@ const ListRooms: React.FC = () => {
         authToken: auth.accessToken,
       })
     );
-  }, [page, rowsPerPage, dispatch]);
+  }, [page, rowsPerPage, dispatch,auth.accessToken,filters.limit,filters.page]);
 
   const handleCloseModal = () => {
     setOpen(false);
@@ -118,7 +118,7 @@ const ListRooms: React.FC = () => {
         authToken: auth.accessToken,
       })
     );
-  }, [page, rowsPerPage, dispatch]);
+  }, [page, rowsPerPage, dispatch,auth.accessToken,filters.limit,filters.page]);
   const handleReset = () => {
     setFilters({
       page: 0,
@@ -168,7 +168,7 @@ const ListRooms: React.FC = () => {
     // const startIndex = page * rowsPerPage;
     // const endIndex = startIndex + rowsPerPage;
     // return result.slice(startIndex, endIndex);
-  }, [meetingRooms, orderDirection, page, rowsPerPage, total]);
+  }, [meetingRooms]);
   const handlePageChange = (newPage: number) => {
     const maxPage = Math.ceil(total / rowsPerPage) - 1;
     const validPage = Math.max(0, Math.min(newPage, maxPage));

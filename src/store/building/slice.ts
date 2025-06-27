@@ -91,7 +91,7 @@ const buildingsSlice = createSlice({
         changes: action.payload,
       });
       const caisse = action.payload.isDeleted;
-      if (caisse == true) {
+      if (caisse === true) {
         buildingsAdapter.removeOne(state, action.payload.id);
         state.total -= 1;
       }

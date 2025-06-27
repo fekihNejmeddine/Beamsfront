@@ -29,7 +29,6 @@ import {
   Modal,
   TextField,
   Typography,
-  useTheme,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
@@ -485,7 +484,7 @@ const Calendar: React.FC = () => {
         },
       },
     ];
-  }, [
+  }, [NumParticipant,
     selectedEvent,
     selectedDay,
     validation.values,
@@ -503,7 +502,7 @@ const Calendar: React.FC = () => {
     if (selectedRoomData) {
       validation.setFieldValue("location", selectedRoomData.location);
     }
-  }, [validation.values.idMeetingRoom, meetingRooms]);
+  }, [validation.values.idMeetingRoom, meetingRooms,validation]);
 
   const formattedEvents = useMemo(() => {
     return events.map((event: Event) => {
@@ -536,7 +535,7 @@ const Calendar: React.FC = () => {
         authToken: auth.accessToken,
       })
     );
-  }, [dispatch]);
+  }, [dispatch,auth.accessToken]);
 
   useEffect(() => {
     if (meetingRooms.length > 0 && selectedRoom === null) {
@@ -590,7 +589,6 @@ const Calendar: React.FC = () => {
     const interval = setInterval(() => {
       const now = moment();
       events.forEach((event) => {
-        const startTime = moment(event.startTime, "YYYY-MM-DDTHH:mm");
         const endTime = moment(event.endTime, "YYYY-MM-DDTHH:mm");
 
         if (
@@ -740,7 +738,7 @@ const Calendar: React.FC = () => {
         })
       );
     },
-    [dispatch, auth?.accessToken, selectedRoom]
+    [dispatch, auth?.accessToken, selectedRoom,auth?.user?.id]
   );
 
   const toggle = () => {
@@ -771,7 +769,6 @@ const Calendar: React.FC = () => {
         );
         return;
       }
-      const rawParticipants = eventInfo.event.extendedProps.participants;
 
       const isPastEvent = moment(eventInfo.event.end).isBefore(
         moment().startOf("day")
@@ -819,20 +816,10 @@ const Calendar: React.FC = () => {
       });
       setModal(true);
     },
-    [validation, auth?.user?.id]
+    [validation, auth?.user?.id,auth?.user?.role]
   );
 
-  const onDelete = () => {
-    if (selectedEvent) {
-      dispatch(
-        actions.deleteEvent({
-          eventId: selectedEvent.id!,
-          token: auth.accessToken,
-        })
-      );
-      toggle();
-    }
-  };
+  
 
   const handleMoreLinkClick = (arg: MoreLinkArg) => {
     setDayEvents(arg.allSegs.map((seg) => seg.event));

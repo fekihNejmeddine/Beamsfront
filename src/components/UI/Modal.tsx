@@ -203,7 +203,7 @@ const EntityModal: React.FC<EntityModalProps> = ({
     } else {
       reset({});
     }
-  }, [open, reset]);
+  }, [open, reset,entity]);
 
   const handleModalClose = () => {
     reset({});

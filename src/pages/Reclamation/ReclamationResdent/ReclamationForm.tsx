@@ -135,7 +135,7 @@ const ReclamationForm: React.FC = () => {
       reset();
       setPhotoPreview([]);
     }
-  }, [createSuccess, reset]);
+  }, [createSuccess, reset,t]);
 
   useEffect(() => {
     if (error) {
